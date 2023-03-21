@@ -21,9 +21,10 @@ Route::get('/', function () {
 // });
 
 
-// Auth::routes();
+    // Auth::routes();
 Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('invoices', 'InvoicesController');
+Route::resource('sections', 'SectionController');
 Route::get('/{page}', 'AdminController@index');
