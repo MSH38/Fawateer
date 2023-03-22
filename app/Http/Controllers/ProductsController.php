@@ -38,6 +38,16 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'product_name' => 'required|unique:products',
+            'section_id' => 'required',
+            'description' => 'required',
+        ],[
+            'product_name.required' =>'يرجي ادخال اسم المنتج',
+            'product_name.unique' =>'المنتج موجود مسبقا',
+            'section_id.required' =>'يرجي ادخال اسم القسم',
+            'description.required' =>'يرجى ادخال بيانات المنتج'
+        ]);
         Products::create([
             'product_name' => $request->product_name,
             'section_id' => $request->section_id,
