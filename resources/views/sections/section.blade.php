@@ -76,7 +76,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="example1" class="table key-buttons text-md-nowrap">
+                                    <table id="example1" data-page-lenght='50' class="table key-buttons text-md-nowrap" data-page-length='50'>
                                         <thead>
                                         <tr>
                                             <th class="border-bottom-0">#</th>
@@ -91,11 +91,12 @@
                                             <?php $i++?>
                                         <tr>
                                             <td>{{$i}}</td>
+                                            
                                             <td>{{$x->section_name}}</td>
                                             <td>{{$x->description}}</td>
                                             <td>
 
-                                                    <a class="modal-effect btn btn-sm btn-primary-gradient" data-effect="effect-scale"
+                                                    <a class="modal-effect btn btn-sm btn-success-gradient" data-effect="effect-scale"
                                                        data-id="{{ $x->id }}" data-section_name="{{ $x->section_name }}"
                                                        data-description="{{ $x->description }}" data-toggle="modal" href="#exampleModal2"
                                                        title="تعديل"><i class="las la-pen"></i></a>
