@@ -21,11 +21,16 @@ Route::get('/', function () {
 // });
 
 
-    // Auth::routes();
-Auth::routes(['register' => false]);
+Auth::routes();
+// Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('invoices', 'InvoicesController');
 Route::resource('sections', 'SectionController');
+Route::get('/section/{id}', 'InvoicesController@getproducts');
+Route::get('/InvoicesDetails/{id}', 'InvoicesDetailsController@edit');
 Route::resource('products', 'ProductsController');
+Route::get('/View_file/{invoice_number}/{file_name}', 'InvoicesDetailsController@open_file');
+Route::post('/delete_file', 'InvoicesDetailsController@destroy')->name('delete_file');
+
 Route::get('/{page}', 'AdminController@index');

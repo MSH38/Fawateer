@@ -88,6 +88,16 @@ class ProductsController extends Controller
      */
     public function update(Request $request)
     {
+        $validatedData = $request->validate([
+            'product_name' => 'required|unique:products',
+            'section_id' => 'required',
+            'description' => 'required',
+        ],[
+            'product_name.required' =>'يرجي ادخال اسم المنتج',
+            'product_name.unique' =>'المنتج موجود مسبقا',
+            'section_id.required' =>'يرجي ادخال اسم القسم',
+            'description.required' =>'يرجى ادخال بيانات المنتج'
+        ]);
 
        $id = section::where('section_name', $request->section_name)->first()->id;
 

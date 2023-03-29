@@ -19,7 +19,7 @@
 							<h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ قائمه الفواتير</span>
 						</div>
 					</div>
-					<div class="d-flex my-xl-auto right-content">
+					<!-- <div class="d-flex my-xl-auto right-content">
 						<div class="pr-1 mb-3 mb-xl-0">
 							<button type="button" class="btn btn-info btn-icon ml-2"><i class="mdi mdi-filter-variant"></i></button>
 						</div>
@@ -43,7 +43,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<!-- breadcrumb -->
 @endsection
@@ -58,15 +58,17 @@
                             <div class="card mg-b-20">
                                 <div class="card-header pb-0">
                                     <div class="d-flex justify-content-between">
-                                        <h4 class="card-title mg-b-0">Bordered Table</h4>
-                                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                                        <a href="invoices/create" class="modal-effect btn btn-sm btn-primary">
+                                            <i class="fas fa-plus">&nbsp; اضافة فاتورة</i>
+                                        </a>
                                     </div>
-                                    <p class="tx-12 tx-gray-500 mb-2">Example of Valex Bordered Table.. <a href="">Learn more</a></p>
                                 </div>
+
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table id="example" class="table key-buttons text-md-nowrap">
                                             <thead>
+                                                
                                                 <tr>
                                                     <th class="border-bottom-0">#</th>
                                                     <th class="border-bottom-0">رقم الفاتوره</th>
@@ -80,26 +82,44 @@
                                                     <th class="border-bottom-0">الاجمالى</th>
                                                     <th class="border-bottom-0">الحاله</th>
                                                     <th class="border-bottom-0">الملاحظات</th>
+                                                    <th class="border-bottom-0"></th>
+
+
 
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
-                                                    <td>$320,800</td>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
-                                                    <td>$320,800</td>
-                                                    
-                                                </tr>
-                                               
+                                                <?php $i=0;?>
+                                                @foreach($invoices as $invoice)
+                                                <?php $i++?>
+                                                    <tr>
+                                                        <td>{{ $i }}</td>
+                                                        <td>{{ $invoice->invoice_number }}</td>
+                                                        <td>{{ $invoice->invoice_Date }}</td>
+                                                        <td>{{ $invoice->Due_date }}</td>
+                                                        <td>{{ $invoice->product}}</td>
+                                                        <td>
+                                                            <!-- {{ $invoice->section->section_name}} -->
+                                                            <a href="{{url('InvoicesDetails')}}/{{$invoice->id}}">{{ $invoice->section->section_name}}</a>
+                                                        </td>
+                                                        <td>{{ $invoice->Discount }}</td>
+                                                        <td>{{ $invoice->Rate_VAT }}</td>
+                                                        <td>{{ $invoice->Value_VAT }}</td>
+                                                        <td>{{ $invoice->Total }}</td>
+                                                        <td>
+                                                            @if($invoice->Value_Status == 1)
+                                                                <span class="text-success">{{ $invoice->Status }}</span>
+                                                            @elseif($invoice->Value_Status == 2)
+                                                                <span class="text-danger">{{ $invoice->Status }}</span>
+                                                            @else
+                                                                <span class="text-warning">{{ $invoice->Status }}</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $invoice->note}}</td>
+                                                        <td></td>
+                                                        
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
