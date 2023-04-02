@@ -139,7 +139,7 @@ class InvoicesController extends Controller
     public function edit($id)
     {
         $invoices = invoices::where('id', $id)->first();
-        $sections = sections::all();
+        $sections = section::all();
         return view('invoices.edit_invoice', compact('sections', 'invoices'));
     }
 
@@ -159,7 +159,7 @@ class InvoicesController extends Controller
             'invoice_Date' => $request->invoice_Date,
             'Due_date' => $request->Due_date,
             'product' => $request->product,
-            'section_id' => $request->Section,
+            'section_id' => $request->section,
             'Amount_collection' => $request->Amount_collection,
             'Amount_Commission' => $request->Amount_Commission,
             'Discount' => $request->Discount,
@@ -183,18 +183,17 @@ class InvoicesController extends Controller
     {
         $id = $request->invoice_id;
         $invoices = invoices::where('id', $id)->first();
-        $Details = invoice_attachments::where('invoice_id', $id)->first();
+        $Details = invoices_attachments::where('invoice_id', $id)->first();
 
          $id_page =$request->id_page;
 
 
         if (!$id_page==2) {
 
-        if (!empty($Details->invoice_number)) {
+            if (!empty($Details->invoice_number)) {
 
-            Storage::disk('public_uploads')->deleteDirectory($Details->invoice_number);
-        }
-
+                Storage::disk('public_uploads')->deleteDirectory($Details->invoice_number);
+            }
         $invoices->forceDelete();
         session()->flash('delete_invoice');
         return redirect('/invoices');
@@ -232,7 +231,7 @@ class InvoicesController extends Controller
                 'Payment_Date' => $request->Payment_Date,
             ]);
 
-            invoices_Details::create([
+            invoices_details::create([
                 'id_Invoice' => $request->invoice_id,
                 'invoice_number' => $request->invoice_number,
                 'product' => $request->product,
@@ -240,30 +239,52 @@ class InvoicesController extends Controller
                 'Status' => $request->Status,
                 'Value_Status' => 1,
                 'note' => $request->note,
+
                 'Payment_Date' => $request->Payment_Date,
                 'user' => (Auth::user()->name),
             ]);
+            
         }
+        // elseif($request->Status === ' مدفوعة جزئيا'){
+        //     $invoices->update([
+        //         'Value_Status' => 2,
+        //         'Status' => $request->Status,
+        //         'Payment_Date' => $request->Payment_Date,
+        //     ]);
+
+        //     invoices_Details::create([
+        //         'id_Invoice' => $request->invoice_id,
+        //         'invoice_number' => $request->invoice_number,
+        //         'product' => $request->product,
+        //         'Section' => $request->Section,
+        //         'Status' => $request->Status,
+        //         'Value_Status' => 2,
+        //         'note' => $request->note,
+        //         'Payment_Date' => $request->Payment_Date,
+        //         'user' => (Auth::user()->name),
+        //     ]);
+
+        // }
 
         else {
             $invoices->update([
-                'Value_Status' => 3,
-                'status' => $request->status,
+                'Value_Status' => 2,
+                'Status' => $request->Status,
                 'Payment_Date' => $request->Payment_Date,
             ]);
-            invoices_Details::create([
+            invoices_details::create([
                 'id_Invoice' => $request->invoice_id,
                 'invoice_number' => $request->invoice_number,
                 'product' => $request->product,
-                'section' => $request->section,
-                'status' => $request->status,
-                'Value_Status' => 3,
+                'Section' => $request->Section,
+                'Status' => $request->Status,
+                'Value_Status' => 2,
                 'note' => $request->note,
                 'Payment_Date' => $request->Payment_Date,
                 'user' => (Auth::user()->name),
             ]);
         }
-        session()->flash('status_Update');
+        session()->flash('Status_Update');
         return redirect('/invoices');
 
     }
@@ -271,24 +292,25 @@ class InvoicesController extends Controller
 
      public function Invoice_Paid()
     {
-        $invoices = Invoices::where('Value_Status', 1)->get();
+        $invoices = invoices::where('Value_Status', 1)->get();
         return view('invoices.invoices_paid',compact('invoices'));
     }
 
     public function Invoice_unPaid()
     {
-        $invoices = Invoices::where('Value_Status',2)->get();
+        $invoices = invoices::where('Value_Status',2)->get();
         return view('invoices.invoices_unpaid',compact('invoices'));
     }
 
     public function Invoice_Partial()
     {
-        $invoices = Invoices::where('Value_Status',3)->get();
+        $invoices = invoices::where('Value_Status',3)->get();
         return view('invoices.invoices_Partial',compact('invoices'));
     }
 
     public function Print_invoice($id)
     {
+        dd($id);
         $invoices = invoices::where('id', $id)->first();
         return view('invoices.Print_invoice',compact('invoices'));
     }
