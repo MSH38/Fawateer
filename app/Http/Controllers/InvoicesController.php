@@ -310,7 +310,6 @@ class InvoicesController extends Controller
 
     public function Print_invoice($id)
     {
-        dd($id);
         $invoices = invoices::where('id', $id)->first();
         return view('invoices.Print_invoice',compact('invoices'));
     }

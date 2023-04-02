@@ -35,10 +35,10 @@
                         <div class="invoice-header">
                             <h1 class="invoice-title">فاتورة تحصيل</h1>
                             <div class="billed-from">
-                                <h6>BootstrapDash, Inc.</h6>
-                                <p>201 Something St., Something Town, YT 242, Country 6546<br>
-                                    Tel No: 324 445-4544<br>
-                                    Email: youremail@companyname.com</p>
+                                <h6>Heikal</h6>
+                                <p>Egypt, Alexandria, Cairo <br>
+                                    Tel No: +201 0170 1139 1<br>
+                                    Email: m.samy1011997@HeikalGroup.com</p>
                             </div><!-- billed-from -->
                         </div><!-- invoice-header -->
                         <div class="row mg-t-20">
