@@ -99,19 +99,12 @@ class InvoicesController extends Controller
         }
 
 
-           // $user = User::first();
-           // Notification::send($user, new AddInvoice($invoice_id));
+        //    $user = User::first();
+        //    Notification::send($user, new AddInvoice($invoice_id));
 
-        $user = User::get();
-        $invoices = invoices::latest()->first();
+        // $user = User::get();
+        // $invoices = invoices::latest()->first();
         // Notification::send($user, new \App\Notifications\Add_invoice_new($invoices));
-
-     
-
-
-
-
-        
         // event(new MyEventClass('hello world'));
 
         session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
@@ -343,15 +336,12 @@ class InvoicesController extends Controller
     }
 
     public function unreadNotifications()
-
     {
         foreach (auth()->user()->unreadNotifications as $notification){
-
-return $notification->data['title'];
-
+            return $notification->data['title'];
         }
-
     }
+    
 
 
 
