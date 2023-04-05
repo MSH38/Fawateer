@@ -19,6 +19,8 @@ $data = User::orderBy('id','DESC')->paginate(5);
 return view('users.index',compact('data'))
 ->with('i', ($request->input('page', 1) - 1) * 5);
 }
+
+
 /**
 * Show the form for creating a new resource.
 *
@@ -27,7 +29,9 @@ return view('users.index',compact('data'))
 public function create()
 {
 $roles = Role::pluck('name','name')->all();
-return view('users.create',compact('roles'));
+
+return view('users.Add_user',compact('roles'));
+
 }
 /**
 * Store a newly created resource in storage.
@@ -41,15 +45,20 @@ $this->validate($request, [
 'name' => 'required',
 'email' => 'required|email|unique:users,email',
 'password' => 'required|same:confirm-password',
-'roles' => 'required'
+'roles_name' => 'required'
 ]);
+
 $input = $request->all();
+
+
 $input['password'] = Hash::make($input['password']);
+
 $user = User::create($input);
-$user->assignRole($request->input('roles'));
+$user->assignRole($request->input('roles_name'));
 return redirect()->route('users.index')
-->with('success','User created successfully');
+->with('success','تم اضافة المستخدم بنجاح');
 }
+
 /**
 * Display the specified resource.
 *
@@ -100,7 +109,7 @@ $user->update($input);
 DB::table('model_has_roles')->where('model_id',$id)->delete();
 $user->assignRole($request->input('roles'));
 return redirect()->route('users.index')
-->with('success','User updated successfully');
+->with('success','تم تحديث معلومات المستخدم بنجاح');
 }
 /**
 * Remove the specified resource from storage.
@@ -108,10 +117,9 @@ return redirect()->route('users.index')
 * @param  int  $id
 * @return \Illuminate\Http\Response
 */
-public function destroy($id)
+public function destroy(Request $request)
 {
-User::find($id)->delete();
-return redirect()->route('users.index')
-->with('success','User deleted successfully');
+User::find($request->user_id)->delete();
+return redirect()->route('users.index')->with('success','تم حذف المستخدم بنجاح');
 }
 }

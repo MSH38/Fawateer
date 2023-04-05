@@ -8,20 +8,56 @@ class PermissionTableSeeder extends Seeder
 *
 * @return void
 */
-public function run()
-{
-$permissions = [
-'role-list',
-'role-create',
-'role-edit',
-'role-delete',
-// 'product-list',
-// 'product-create',
-// 'product-edit',
-// 'product-delete'
-];
-foreach ($permissions as $permission) {
-Permission::create(['name' => $permission]);
-}
-}
+    public function run()
+    {
+        $permissions = [
+            'الفواتير',
+            'قائمة الفواتير',
+            'الفواتير المدفوعة',
+            'الفواتير المدفوعة جزئيا',
+            'الفواتير الغير مدفوعة',
+            'ارشيف الفواتير',
+            'التقارير',
+            'تقرير الفواتير',
+            'تقرير العملاء',
+            'المستخدمين',
+            'قائمة المستخدمين',
+            'صلاحيات المستخدمين',
+            'الاعدادات',
+            'المنتجات',
+            'الاقسام',
+
+
+            'اضافة فاتورة',
+            'حذف الفاتورة',
+            'تصدير EXCEL',
+            'تغير حالة الدفع',
+            'تعديل الفاتورة',
+            'ارشفة الفاتورة',
+            'طباعةالفاتورة',
+            'اضافة مرفق',
+            'حذف المرفق',
+
+            'اضافة مستخدم',
+            'تعديل مستخدم',
+            'حذف مستخدم',
+
+            'عرض صلاحية',
+            'اضافة صلاحية',
+            'تعديل صلاحية',
+            'حذف صلاحية',
+
+            'اضافة منتج',
+            'تعديل منتج',
+            'حذف منتج',
+
+            'اضافة قسم',
+            'تعديل قسم',
+            'حذف قسم',
+            'الاشعارات',
+        ];
+        foreach ($permissions as $permission) {
+        Permission::create(['name' => $permission]);
+        }
+    }
 }
