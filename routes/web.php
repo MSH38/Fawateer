@@ -51,6 +51,8 @@ Route::get('/print_invoice/{id}', 'InvoicesController@print_invoice');
 Route::get('invoices_report', 'Invoices_ReportController@index');
 Route::post('Search_invoices', 'Invoices_ReportController@Search_invoices');
 
+Route::get('customers_report', 'Customers_ReportController@index');
+Route::post('Search_customers', 'Customers_ReportController@Search_customers');
 
 Route::get('/export_invoices', 'Invoices_Report@index');
 
