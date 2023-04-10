@@ -48,8 +48,11 @@ Route::get('Invoice_Paid','InvoicesController@Invoice_Paid');
 Route::get('Invoice_UnPaid','InvoicesController@Invoice_UnPaid');
 Route::get('Invoice_Partial','InvoicesController@Invoice_Partial');
 Route::get('/print_invoice/{id}', 'InvoicesController@print_invoice');
+Route::get('invoices_report', 'Invoices_ReportController@index');
+Route::post('Search_invoices', 'Invoices_ReportController@Search_invoices');
 
-Route::get('/export_invoices', 'InvoicesController@export');
+
+Route::get('/export_invoices', 'Invoices_Report@index');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles','RoleController');
